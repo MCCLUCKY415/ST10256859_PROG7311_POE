@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ST10256859_PROG7311_POE.Models;
 
 namespace ST10256859_PROG7311_POE.DataBase
 {
@@ -8,5 +9,7 @@ namespace ST10256859_PROG7311_POE.DataBase
             : base(options)
         {
         }
+
+        public DbSet<User> Users { get; set; }
     }
 }

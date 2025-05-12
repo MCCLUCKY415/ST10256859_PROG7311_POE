@@ -33,22 +33,36 @@ namespace ST10256859_PROG7311_POE.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _context.Users
-                    .FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+                // Try to find the user as a Farmer
+                var farmer = _context.Farmers
+                    .FirstOrDefault(f => f.Email == model.Email && f.Password == model.Password);
 
-                if (user != null)
+                if (farmer != null)
                 {
-                    // Set session or cookie for the logged-in user
-                    HttpContext.Session.SetString("UserID", user.Id.ToString());
-
-                    return RedirectToAction("Index", "Home");  // Redirect to home or dashboard
+                    HttpContext.Session.SetString("UserRole", "Farmer");
+                    HttpContext.Session.SetString("UserID", farmer.FarmerID.ToString());
+                    HttpContext.Session.SetString("UserName", farmer.FirstName + " " + farmer.LastName);
+                    return RedirectToAction("Index", "Home");
                 }
 
-                ModelState.AddModelError("", "Invalid username or password.");
+                // Try to find the user as an Employee
+                var employee = _context.Employees
+                    .FirstOrDefault(e => e.Email == model.Email && e.Password == model.Password);
+
+                if (employee != null)
+                {
+                    HttpContext.Session.SetString("UserRole", "Employee");
+                    HttpContext.Session.SetString("UserID", employee.EmployeeID.ToString());
+                    HttpContext.Session.SetString("UserName", employee.FirstName + " " + employee.LastName);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError("", "Invalid email or password.");
             }
 
             return View(model);
         }
+
 
 
         // GET: SignUp
@@ -65,24 +79,49 @@ namespace ST10256859_PROG7311_POE.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userExists = _context.Users
-                    .FirstOrDefault(u => u.Email == model.Email);
+                // Check if the email already exists in either table
+                bool farmerExists = _context.Farmers.Any(f => f.Email == model.Email);
+                bool employeeExists = _context.Employees.Any(e => e.Email == model.Email);
 
-                if (userExists != null)
+                if (farmerExists || employeeExists)
                 {
-                    ModelState.AddModelError("", "Username already exists.");
+                    ModelState.AddModelError("", "Email already exists.");
                     return View(model);
                 }
 
-                var user = new User
+                if (model.Role == "Farmer")
                 {
-                    Email = model.Email,
-                    Password = model.Password,
-                    Role = model.Role,
-                };
-
-                _context.Users.Add(user);
-                _context.SaveChanges();
+                    var farmer = new Farmer
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        PhoneNumber = model.PhoneNumber,
+                        Address = model.Address,
+                        Email = model.Email,
+                        Password = model.Password
+                    };
+                    _context.Farmers.Add(farmer);
+                    _context.SaveChanges();
+                }
+                else if (model.Role == "Employee")
+                {
+                    var employee = new Employee
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        PhoneNumber = model.PhoneNumber,
+                        Address = model.Address,
+                        Email = model.Email,
+                        Password = model.Password
+                    };
+                    _context.Employees.Add(employee);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid role selected.");
+                    return View(model);
+                }
 
                 return RedirectToAction("Login");
             }
@@ -91,9 +130,11 @@ namespace ST10256859_PROG7311_POE.Controllers
         }
 
 
+
         public IActionResult Index()
         {
-            return View();
+            var farmers = _context.Farmers.ToList();
+            return View(farmers);
         }
 
 

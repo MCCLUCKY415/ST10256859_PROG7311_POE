@@ -10,5 +10,4 @@
         public int FarmerID { get; set; }
         public Farmer Farmer { get; set; }
     }
-
 }

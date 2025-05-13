@@ -21,7 +21,24 @@ namespace ST10256859_PROG7311_POE.Controllers
 
         public IActionResult EmployeeProfile()
         {
-            return View();
+            if (!IsEmployee())
+                return RedirectToAction("Login", "Home");
+
+            var employeeIdString = HttpContext.Session.GetString("UserID");
+            if (string.IsNullOrEmpty(employeeIdString))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            int employeeId = int.Parse(employeeIdString);
+            var employee = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
         }
 
 

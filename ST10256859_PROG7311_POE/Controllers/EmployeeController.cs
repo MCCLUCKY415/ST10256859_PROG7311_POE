@@ -9,13 +9,28 @@ namespace ST10256859_PROG7311_POE.Controllers
     {
         private readonly AppDbContext _context;
 
+        private bool IsEmployee()
+        {
+            return HttpContext.Session.GetString("UserRole") == "Employee";
+        }
+
         public EmployeeController(AppDbContext context)
         {
             _context = context;
         }
 
+        public IActionResult EmployeeProfile()
+        {
+            return View();
+        }
+
+
+
         public IActionResult FarmerProducts(int? farmerId, string category, DateTime? startDate, DateTime? endDate)
         {
+            if (!IsEmployee())
+                return RedirectToAction("Login", "Home");
+
             var farmers = _context.Farmers.ToList();
             var categories = _context.Products.Select(p => p.Category).Distinct().ToList();
 

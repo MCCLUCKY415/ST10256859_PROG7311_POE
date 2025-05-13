@@ -15,6 +15,11 @@ namespace ST10256859_PROG7311_POE.Controllers
             _context = context;
         }
 
+        private bool IsFarmer()
+        {
+            return HttpContext.Session.GetString("UserRole") == "Farmer";
+        }
+
         private byte[] GetDefaultProductImage()
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "default_product.png");
@@ -23,6 +28,9 @@ namespace ST10256859_PROG7311_POE.Controllers
 
         public IActionResult FarmerProfile()
         {
+            if (!IsFarmer())
+                return RedirectToAction("Login", "Home");
+
             var farmerIdString = HttpContext.Session.GetString("UserID");
             if (string.IsNullOrEmpty(farmerIdString))
             {
@@ -46,6 +54,9 @@ namespace ST10256859_PROG7311_POE.Controllers
 
         public IActionResult ProductAdd()
         {
+            if (!IsFarmer())
+                return RedirectToAction("Login", "Home");
+
             // Get FarmerID from session
             var farmerIdString = HttpContext.Session.GetString("UserID");
             if (string.IsNullOrEmpty(farmerIdString))

@@ -51,6 +51,17 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="FarmerProducts">Farmer Products</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="FarmerAdd">Add Farmer</a>
+                            </li>
+                        }
+                        @if (!string.IsNullOrEmpty(userRole))
+                        {
+                            <li class="nav-item">
+                                <form asp-area="" asp-controller="Home" asp-action="Logout" method="post" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-dark" style="display:inline; padding:0; border:none; background:none;">Logout</button>
+                                </form>
+                            </li>
                         }
                     </ul>
                 </div>

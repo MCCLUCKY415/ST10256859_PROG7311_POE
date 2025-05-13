@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ST10256859_PROG7311_POE.DataBase;
+using ST10256859_PROG7311_POE.Models;
 using ST10256859_PROG7311_POE.ViewModels;
 
 namespace ST10256859_PROG7311_POE.Controllers
@@ -78,5 +79,48 @@ namespace ST10256859_PROG7311_POE.Controllers
 
             return View(viewModel);
         }
+
+
+        public IActionResult FarmerAdd()
+        {
+            if (!IsEmployee())
+                return RedirectToAction("Login", "Home");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult FarmerAdd(FarmerAddViewModel model)
+        {
+            if (!IsEmployee())
+                return RedirectToAction("Login", "Home");
+
+            if (ModelState.IsValid)
+            {
+                // Check if email already exists
+                bool farmerExists = _context.Farmers.Any(f => f.Email == model.Email);
+                if (farmerExists)
+                {
+                    ModelState.AddModelError("", "A farmer with this email already exists.");
+                    return View(model);
+                }
+
+                var farmer = new Farmer
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    Address = model.Address,
+                    Password = model.Password
+                };
+
+                _context.Farmers.Add(farmer);
+                _context.SaveChanges();
+                return RedirectToAction("FarmerProducts");
+            }
+            return View(model);
+        }
+
     }
 }

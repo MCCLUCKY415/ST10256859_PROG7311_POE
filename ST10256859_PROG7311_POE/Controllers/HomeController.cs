@@ -89,39 +89,18 @@ namespace ST10256859_PROG7311_POE.Controllers
                     return View(model);
                 }
 
-                if (model.Role == "Farmer")
+                // Always create an Employee
+                var employee = new Employee
                 {
-                    var farmer = new Farmer
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        PhoneNumber = model.PhoneNumber,
-                        Address = model.Address,
-                        Email = model.Email,
-                        Password = model.Password
-                    };
-                    _context.Farmers.Add(farmer);
-                    _context.SaveChanges();
-                }
-                else if (model.Role == "Employee")
-                {
-                    var employee = new Employee
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        PhoneNumber = model.PhoneNumber,
-                        Address = model.Address,
-                        Email = model.Email,
-                        Password = model.Password
-                    };
-                    _context.Employees.Add(employee);
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid role selected.");
-                    return View(model);
-                }
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
+                    Address = model.Address,
+                    Email = model.Email,
+                    Password = model.Password
+                };
+                _context.Employees.Add(employee);
+                _context.SaveChanges();
 
                 return RedirectToAction("Login");
             }
@@ -129,6 +108,13 @@ namespace ST10256859_PROG7311_POE.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Home");
+        }
 
 
         public IActionResult Index()

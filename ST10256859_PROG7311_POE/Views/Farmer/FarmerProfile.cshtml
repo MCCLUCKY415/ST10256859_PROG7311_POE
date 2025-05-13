@@ -9,7 +9,7 @@
     {
         if (imageData == null || imageData.Length == 0)
         {
-            return Url.Content("~/images/default_product.png");
+            return Url.Content("~/images/default_image.png");
         }
         var base64 = Convert.ToBase64String(imageData);
         return $"data:image/png;base64,{base64}";

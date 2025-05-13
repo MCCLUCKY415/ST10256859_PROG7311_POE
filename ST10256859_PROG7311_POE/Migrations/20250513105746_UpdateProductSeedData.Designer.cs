@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ST10256859_PROG7311_POE.DataBase;
 
@@ -10,9 +11,11 @@ using ST10256859_PROG7311_POE.DataBase;
 namespace ST10256859_PROG7311_POE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250513105746_UpdateProductSeedData")]
+    partial class UpdateProductSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
@@ -145,13 +148,11 @@ namespace ST10256859_PROG7311_POE.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("FarmerID")
                         .HasColumnType("INTEGER");
-
-                    b.Property<byte[]>("ProductImage")
-                        .HasColumnType("BLOB");
 
                     b.Property<string>("ProductName")
                         .IsRequired()

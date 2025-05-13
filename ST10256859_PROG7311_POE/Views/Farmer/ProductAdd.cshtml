@@ -1,5 +1,69 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ST10256859_PROG7311_POE.ViewModels.ProductAddViewModel
+
 @{
+    ViewData["Title"] = "Add Product";
 }
+
+<h2>Add Product</h2>
+
+<form asp-action="ProductAdd" method="post" enctype="multipart/form-data" class="container mt-4">
+    @Html.HiddenFor(m => m.FarmerID)
+
+    <div class="row mb-3">
+        <label asp-for="ProductName" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="ProductName" class="form-control" />
+            <span asp-validation-for="ProductName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Category" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Category" class="form-control" />
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="ProductionDate" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="ProductionDate" type="date" class="form-control" />
+            <span asp-validation-for="ProductionDate" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="ProductPrice" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="ProductPrice" class="form-control" />
+            <span asp-validation-for="ProductPrice" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="AvailableQuantity" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="AvailableQuantity" class="form-control" />
+            <span asp-validation-for="AvailableQuantity" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="ProductImage" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="ProductImage" type="file" class="form-control" />
+            <span asp-validation-for="ProductImage" class="text-danger"></span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Product</button>
+</form>

@@ -1,5 +1,73 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ST10256859_PROG7311_POE.Models.Farmer
+
 @{
+    ViewData["Title"] = "Farmer Profile";
+}
+
+@functions {
+    string GetImageSrc(byte[] imageData)
+    {
+        if (imageData == null || imageData.Length == 0)
+        {
+            return Url.Content("~/images/default_product.png");
+        }
+        var base64 = Convert.ToBase64String(imageData);
+        return $"data:image/png;base64,{base64}";
+    }
+}
+
+<h2>Farmer Profile</h2>
+
+<div>
+    <h4>Personal Details</h4>
+    <dl class="row">
+        <dt class="col-sm-2">First Name</dt>
+        <dd class="col-sm-10">@Model.FirstName</dd>
+        <dt class="col-sm-2">Last Name</dt>
+        <dd class="col-sm-10">@Model.LastName</dd>
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+        <dt class="col-sm-2">Phone Number</dt>
+        <dd class="col-sm-10">@Model.PhoneNumber</dd>
+        <dt class="col-sm-2">Address</dt>
+        <dd class="col-sm-10">@Model.Address</dd>
+    </dl>
+</div>
+
+<h4>Listed Products</h4>
+@if (Model.Products != null && Model.Products.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Production Date</th>
+                <th>Price</th>
+                <th>Available Quantity</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>
+                        <img src="@GetImageSrc(product.ProductImage)" alt="Product Image" style="max-width:100px;max-height:100px;" />
+                    </td>
+                    <td>@product.ProductName</td>
+                    <td>@product.Category</td>
+                    <td>@product.ProductionDate.ToShortDateString()</td>
+                    <td>@product.ProductPrice</td>
+                    <td>@product.AvailableQuantity</td>
+                    <td>@product.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No products listed.</p>
 }

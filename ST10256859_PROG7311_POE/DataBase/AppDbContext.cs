@@ -32,10 +32,10 @@ namespace ST10256859_PROG7311_POE.DataBase
 
             // Seed Products
             modelBuilder.Entity<Product>().HasData(
-                new Product { ProductID = 1, ProductName = "Tomatoes", Category = "Vegetable", ProductionDate = new DateTime(2025, 3, 1), FarmerID = 1 },
-                new Product { ProductID = 2, ProductName = "Carrots", Category = "Vegetable", ProductionDate = new DateTime(2025, 4, 1), FarmerID = 1 },
-                new Product { ProductID = 3, ProductName = "Apples", Category = "Fruit", ProductionDate = new DateTime(2025, 5, 1), FarmerID = 2 },
-                new Product { ProductID = 4, ProductName = "Lettuce", Category = "Vegetable", ProductionDate = new DateTime(2025, 2, 15), FarmerID = 2 }
+                new Product { ProductID = 1, ProductName = "Tomatoes", Category = "Vegetable", ProductionDate = new DateTime(2025, 3, 1), ProductPrice = 15.99m, AvailableQuantity = 50, Description = "Fresh and ripe tomatoes.", FarmerID = 1, ProductImage = null },
+                new Product { ProductID = 2, ProductName = "Carrots", Category = "Vegetable", ProductionDate = new DateTime(2025, 4, 1), ProductPrice = 10.50m, AvailableQuantity = 80, Description = "Crunchy orange carrots.", FarmerID = 1, ProductImage = null },
+                new Product { ProductID = 3, ProductName = "Apples", Category = "Fruit", ProductionDate = new DateTime(2025, 5, 1), ProductPrice = 20.00m, AvailableQuantity = 100, Description = "Sweet red apples.", FarmerID = 2, ProductImage = null },
+                new Product { ProductID = 4, ProductName = "Lettuce", Category = "Vegetable", ProductionDate = new DateTime(2025, 2, 15), ProductPrice = 8.75m, AvailableQuantity = 40, Description = "Crisp green lettuce.", FarmerID = 2, ProductImage = null }
             );
         }
     }

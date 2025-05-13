@@ -8,11 +8,13 @@ namespace ST10256859_PROG7311_POE.Controllers
 {
     public class FarmerController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IRepository<Farmer> _farmerRepo;
+        private readonly IRepository<Product> _productRepo;
 
-        public FarmerController(AppDbContext context)
+        public FarmerController(IRepository<Farmer> farmerRepo, IRepository<Product> productRepo)
         {
-            _context = context;
+            _farmerRepo = farmerRepo;
+            _productRepo = productRepo;
         }
 
         private bool IsFarmer()
@@ -26,27 +28,23 @@ namespace ST10256859_PROG7311_POE.Controllers
             return System.IO.File.Exists(path) ? System.IO.File.ReadAllBytes(path) : null;
         }
 
-        public IActionResult FarmerProfile()
+        public async Task<IActionResult> FarmerProfile()
         {
             if (!IsFarmer())
                 return RedirectToAction("Login", "Home");
 
             var farmerIdString = HttpContext.Session.GetString("UserID");
             if (string.IsNullOrEmpty(farmerIdString))
-            {
                 return RedirectToAction("Login", "Home");
-            }
 
             int farmerId = int.Parse(farmerIdString);
 
-            var farmer = _context.Farmers
+            var farmer = await _farmerRepo.Query()
                 .Include(f => f.Products)
-                .FirstOrDefault(f => f.FarmerID == farmerId);
+                .FirstOrDefaultAsync(f => f.FarmerID == farmerId);
 
             if (farmer == null)
-            {
                 return NotFound();
-            }
 
             return View(farmer);
         }
@@ -74,7 +72,7 @@ namespace ST10256859_PROG7311_POE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ProductAdd(ProductAddViewModel model)
+        public async Task<IActionResult> ProductAdd(ProductAddViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -103,8 +101,8 @@ namespace ST10256859_PROG7311_POE.Controllers
                     FarmerID = model.FarmerID,
                     ProductImage = imageData
                 };
-                _context.Products.Add(product);
-                _context.SaveChanges();
+                await _productRepo.AddAsync(product);
+                await _productRepo.SaveAsync();
                 return RedirectToAction("FarmerProfile");
             }
             return View(model);

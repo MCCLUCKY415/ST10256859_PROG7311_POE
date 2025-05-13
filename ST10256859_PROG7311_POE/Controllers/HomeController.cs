@@ -10,12 +10,17 @@ namespace ST10256859_PROG7311_POE.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly AppDbContext _context;
+        private readonly IRepository<Farmer> _farmerRepo;
+        private readonly IRepository<Employee> _employeeRepo;
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext context)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IRepository<Farmer> farmerRepo,
+            IRepository<Employee> employeeRepo)
         {
             _logger = logger;
-            _context = context;
+            _farmerRepo = farmerRepo;
+            _employeeRepo = employeeRepo;
         }
 
 
@@ -26,15 +31,13 @@ namespace ST10256859_PROG7311_POE.Controllers
         }
 
 
-        // POST: Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // Try to find the user as a Farmer
-                var farmer = _context.Farmers
+                var farmer = _farmerRepo.Query()
                     .FirstOrDefault(f => f.Email == model.Email && f.Password == model.Password);
 
                 if (farmer != null)
@@ -45,8 +48,7 @@ namespace ST10256859_PROG7311_POE.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                // Try to find the user as an Employee
-                var employee = _context.Employees
+                var employee = _employeeRepo.Query()
                     .FirstOrDefault(e => e.Email == model.Email && e.Password == model.Password);
 
                 if (employee != null)
@@ -75,13 +77,12 @@ namespace ST10256859_PROG7311_POE.Controllers
         // POST: SignUp
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SignUp(SignUpViewModel model)
+        public async Task<IActionResult> SignUp(SignUpViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // Check if the email already exists in either table
-                bool farmerExists = _context.Farmers.Any(f => f.Email == model.Email);
-                bool employeeExists = _context.Employees.Any(e => e.Email == model.Email);
+                bool farmerExists = _farmerRepo.Query().Any(f => f.Email == model.Email);
+                bool employeeExists = _employeeRepo.Query().Any(e => e.Email == model.Email);
 
                 if (farmerExists || employeeExists)
                 {
@@ -89,7 +90,6 @@ namespace ST10256859_PROG7311_POE.Controllers
                     return View(model);
                 }
 
-                // Always create an Employee
                 var employee = new Employee
                 {
                     FirstName = model.FirstName,
@@ -99,14 +99,15 @@ namespace ST10256859_PROG7311_POE.Controllers
                     Email = model.Email,
                     Password = model.Password
                 };
-                _context.Employees.Add(employee);
-                _context.SaveChanges();
+                await _employeeRepo.AddAsync(employee);
+                await _employeeRepo.SaveAsync();
 
                 return RedirectToAction("Login");
             }
 
             return View(model);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -117,9 +118,9 @@ namespace ST10256859_PROG7311_POE.Controllers
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var farmers = _context.Farmers.ToList();
+            var farmers = await _farmerRepo.GetAllAsync();
             return View(farmers);
         }
 

@@ -8,51 +8,52 @@ namespace ST10256859_PROG7311_POE.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IRepository<Employee> _employeeRepo;
+        private readonly IRepository<Farmer> _farmerRepo;
+        private readonly IRepository<Product> _productRepo;
+
+        public EmployeeController(
+            IRepository<Employee> employeeRepo,
+            IRepository<Farmer> farmerRepo,
+            IRepository<Product> productRepo)
+        {
+            _employeeRepo = employeeRepo;
+            _farmerRepo = farmerRepo;
+            _productRepo = productRepo;
+        }
 
         private bool IsEmployee()
         {
             return HttpContext.Session.GetString("UserRole") == "Employee";
         }
 
-        public EmployeeController(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        public IActionResult EmployeeProfile()
+        public async Task<IActionResult> EmployeeProfile()
         {
             if (!IsEmployee())
                 return RedirectToAction("Login", "Home");
 
             var employeeIdString = HttpContext.Session.GetString("UserID");
             if (string.IsNullOrEmpty(employeeIdString))
-            {
                 return RedirectToAction("Login", "Home");
-            }
 
             int employeeId = int.Parse(employeeIdString);
-            var employee = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
+            var employee = await _employeeRepo.Query().FirstOrDefaultAsync(e => e.EmployeeID == employeeId);
 
             if (employee == null)
-            {
                 return NotFound();
-            }
 
             return View(employee);
         }
 
-
-
-        public IActionResult FarmerProducts(int? farmerId, string category, DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> FarmerProducts(int? farmerId, string category, DateTime? startDate, DateTime? endDate)
         {
             if (!IsEmployee())
                 return RedirectToAction("Login", "Home");
 
-            var farmers = _context.Farmers.ToList();
-            var categories = _context.Products.Select(p => p.Category).Distinct().ToList();
+            var farmers = await _farmerRepo.GetAllAsync();
+            var categories = _productRepo.Query().Select(p => p.Category).Distinct().ToList();
 
-            var productsQuery = _context.Products.Include(p => p.Farmer).AsQueryable();
+            var productsQuery = _productRepo.Query().Include(p => p.Farmer) as IQueryable<Product>;
 
             if (farmerId.HasValue)
                 productsQuery = productsQuery.Where(p => p.FarmerID == farmerId.Value);
@@ -68,9 +69,9 @@ namespace ST10256859_PROG7311_POE.Controllers
 
             var viewModel = new FarmerProductsViewModel
             {
-                Farmers = farmers,
+                Farmers = farmers.ToList(),
                 SelectedFarmerId = farmerId,
-                Products = productsQuery.ToList(),
+                Products = await productsQuery.ToListAsync(),
                 SelectedCategory = category,
                 StartDate = startDate,
                 EndDate = endDate,
@@ -90,15 +91,14 @@ namespace ST10256859_PROG7311_POE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult FarmerAdd(FarmerAddViewModel model)
+        public async Task<IActionResult> FarmerAdd(FarmerAddViewModel model)
         {
             if (!IsEmployee())
                 return RedirectToAction("Login", "Home");
 
             if (ModelState.IsValid)
             {
-                // Check if email already exists
-                bool farmerExists = _context.Farmers.Any(f => f.Email == model.Email);
+                bool farmerExists = _farmerRepo.Query().Any(f => f.Email == model.Email);
                 if (farmerExists)
                 {
                     ModelState.AddModelError("", "A farmer with this email already exists.");
@@ -115,8 +115,8 @@ namespace ST10256859_PROG7311_POE.Controllers
                     Password = model.Password
                 };
 
-                _context.Farmers.Add(farmer);
-                _context.SaveChanges();
+                await _farmerRepo.AddAsync(farmer);
+                await _farmerRepo.SaveAsync();
                 return RedirectToAction("FarmerProducts");
             }
             return View(model);

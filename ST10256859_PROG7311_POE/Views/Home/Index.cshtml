@@ -1,42 +1,14 @@
-﻿@model IEnumerable<ST10256859_PROG7311_POE.Models.Farmer>
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
+<div class="home-logo-container">
+    <img src="~/images/image1.png" alt="Agri-Energy Connect Logo" class="home-logo-img" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <div class="home-title-group">
+        <div class="home-logo-title">Agri-Energy Connect</div>
+        <div class="home-welcome-message">
+            Empowering farmers and buyers through smart, sustainable, and simple agricultural solutions.
+        </div>
+    </div>
 </div>
-
-<h2>Farmers</h2>
-@if (Model != null && Model.Any())
-{
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Farmer ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Contact Number</th>
-                <th>Address</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var farmer in Model)
-            {
-                <tr>
-                    <td>@farmer.FarmerID</td>
-                    <td>@farmer.FirstName</td>
-                    <td>@farmer.LastName</td>
-                    <td>@farmer.Email</td>
-                    <td>@farmer.PhoneNumber</td>
-                    <td>@farmer.Address</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No farmers found.</p>
-}

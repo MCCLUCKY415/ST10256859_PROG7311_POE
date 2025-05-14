@@ -28,7 +28,7 @@ namespace ST10256859_PROG7311_POE.Controllers
             return System.IO.File.Exists(path) ? System.IO.File.ReadAllBytes(path) : null;
         }
 
-        public async Task<IActionResult> FarmerProfile()
+        public async Task<IActionResult> FarmerProfile(string category, DateTime? startDate, DateTime? endDate)
         {
             if (!IsFarmer())
                 return RedirectToAction("Login", "Home");
@@ -46,8 +46,37 @@ namespace ST10256859_PROG7311_POE.Controllers
             if (farmer == null)
                 return NotFound();
 
-            return View(farmer);
+            var productsQuery = farmer.Products.AsQueryable();
+
+            if (!string.IsNullOrEmpty(category))
+                productsQuery = productsQuery.Where(p => p.Category == category);
+
+            if (startDate.HasValue)
+                productsQuery = productsQuery.Where(p => p.ProductionDate >= startDate.Value);
+
+            if (endDate.HasValue)
+                productsQuery = productsQuery.Where(p => p.ProductionDate <= endDate.Value);
+
+            var categories = farmer.Products.Select(p => p.Category).Distinct().ToList();
+
+            var viewModel = new ST10256859_PROG7311_POE.ViewModels.FarmerProfileViewModel
+            {
+                FarmerID = farmer.FarmerID,
+                FirstName = farmer.FirstName,
+                LastName = farmer.LastName,
+                Email = farmer.Email,
+                PhoneNumber = farmer.PhoneNumber,
+                Address = farmer.Address,
+                Products = productsQuery.ToList(),
+                Categories = categories,
+                SelectedCategory = category,
+                StartDate = startDate,
+                EndDate = endDate
+            };
+
+            return View(viewModel);
         }
+
 
 
         public IActionResult ProductAdd()

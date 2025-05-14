@@ -1,4 +1,12 @@
-﻿@model ST10256859_PROG7311_POE.Models.Employee
+﻿@* Dhiren Ruthenavelu
+ ST10256859
+ Group 2
+
+ References:
+ - GitHub Copilot for assisting with the structure of the code.
+ - ChatGPT for assisting me with finding and fixing errors in the code. *@
+
+@model ST10256859_PROG7311_POE.Models.Employee
 
 @{
     ViewData["Title"] = "Employee Profile";
@@ -13,22 +21,27 @@
             </div>
             <!-- Block 2: Centered Inner Details Block -->
             <div class="profile-details-inner">
+                <!-- Display employee's first name -->
                 <div class="profile-row">
                     <span class="profile-label">First Name:</span>
                     <span class="profile-value">@Model.FirstName</span>
                 </div>
+                <!-- Display employee's last name -->
                 <div class="profile-row">
                     <span class="profile-label">Last Name:</span>
                     <span class="profile-value">@Model.LastName</span>
                 </div>
+                <!-- Display employee's email -->
                 <div class="profile-row">
                     <span class="profile-label">Email:</span>
                     <span class="profile-value">@Model.Email</span>
                 </div>
+                <!-- Display employee's phone number -->
                 <div class="profile-row">
                     <span class="profile-label">Phone Number:</span>
                     <span class="profile-value">@Model.PhoneNumber</span>
                 </div>
+                <!-- Display employee's address -->
                 <div class="profile-row">
                     <span class="profile-label">Address:</span>
                     <span class="profile-value">@Model.Address</span>

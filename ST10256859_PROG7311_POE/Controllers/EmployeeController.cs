@@ -1,4 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// Dhiren Ruthenavelu
+// ST10256859
+// Group 2
+
+// References:
+// - GitHub Copilot for assisting with the structure of the code.
+// - ChatGPT for assisting me with finding and fixing errors in the code.
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ST10256859_PROG7311_POE.DataBase;
 using ST10256859_PROG7311_POE.Models;
@@ -6,12 +14,17 @@ using ST10256859_PROG7311_POE.ViewModels;
 
 namespace ST10256859_PROG7311_POE.Controllers
 {
+    // Handles actions for Employee users
     public class EmployeeController : Controller
     {
+        // Repositories for Employee, Farmer, and Product entities
         private readonly IRepository<Employee> _employeeRepo;
         private readonly IRepository<Farmer> _farmerRepo;
         private readonly IRepository<Product> _productRepo;
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Constructor with dependency injection
         public EmployeeController(
             IRepository<Employee> employeeRepo,
             IRepository<Farmer> farmerRepo,
@@ -22,11 +35,17 @@ namespace ST10256859_PROG7311_POE.Controllers
             _productRepo = productRepo;
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Checks if the current user is an Employee
         private bool IsEmployee()
         {
             return HttpContext.Session.GetString("UserRole") == "Employee";
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Shows the profile of the logged-in employee
         public async Task<IActionResult> EmployeeProfile()
         {
             if (!IsEmployee())
@@ -45,6 +64,9 @@ namespace ST10256859_PROG7311_POE.Controllers
             return View(employee);
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Shows products for a selected farmer, with optional filters
         public async Task<IActionResult> FarmerProducts(int? farmerId, string category, DateTime? startDate, DateTime? endDate)
         {
             if (!IsEmployee())
@@ -81,7 +103,9 @@ namespace ST10256859_PROG7311_POE.Controllers
             return View(viewModel);
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        // Shows the form to add a new farmer
         public IActionResult FarmerAdd()
         {
             if (!IsEmployee())
@@ -89,6 +113,9 @@ namespace ST10256859_PROG7311_POE.Controllers
             return View();
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Handles the POST request to add a new farmer
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> FarmerAdd(FarmerAddViewModel model)
@@ -121,6 +148,8 @@ namespace ST10256859_PROG7311_POE.Controllers
             }
             return View(model);
         }
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     }
 }

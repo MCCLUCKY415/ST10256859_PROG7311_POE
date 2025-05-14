@@ -1,19 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// Dhiren Ruthenavelu
+// ST10256859
+// Group 2
+
+// References:
+// - GitHub Copilot for assisting with the structure of the code.
+// - ChatGPT for assisting me with finding and fixing errors in the code.
+
+using Microsoft.EntityFrameworkCore;
 using ST10256859_PROG7311_POE.Models;
 
 namespace ST10256859_PROG7311_POE.DataBase
 {
+    // Entity Framework Core database context
     public class AppDbContext : DbContext
     {
+        // DbSets for each entity
         public DbSet<Farmer> Farmers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Constructor with options
         public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
         {
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Configures the model and seeds initial data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -63,5 +79,6 @@ namespace ST10256859_PROG7311_POE.DataBase
             );
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

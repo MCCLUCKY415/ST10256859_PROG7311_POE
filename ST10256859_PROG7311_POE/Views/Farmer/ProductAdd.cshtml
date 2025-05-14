@@ -1,4 +1,12 @@
-﻿@model ST10256859_PROG7311_POE.ViewModels.ProductAddViewModel
+﻿@* Dhiren Ruthenavelu
+ ST10256859
+ Group 2
+
+ References:
+ - GitHub Copilot for assisting with the structure of the code.
+ - ChatGPT for assisting me with finding and fixing errors in the code. *@
+
+@model ST10256859_PROG7311_POE.ViewModels.ProductAddViewModel
 
 @{
     ViewData["Title"] = "Add Product";
@@ -14,12 +22,15 @@
             <div class="home-welcome-message login-title profile-title-center">
                 Add Product
             </div>
+            <!-- Show validation summary if form is invalid -->
             @if (ViewContext.HttpContext.Request.Method == "POST" && !ViewData.ModelState.IsValid)
             {
                 @Html.ValidationSummary(false, "", new { @class = "system-error-summary" })
             }
+            <!-- Product add form -->
             <form asp-action="ProductAdd" method="post" enctype="multipart/form-data" class="auth-form">
                 @Html.HiddenFor(m => m.FarmerID)
+                <!-- Product name and category fields -->
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="ProductName"></label>
@@ -32,6 +43,7 @@
                         <span asp-validation-for="Category" class="text-danger"></span>
                     </div>
                 </div>
+                <!-- Production date and price fields -->
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="ProductionDate"></label>
@@ -49,7 +61,7 @@
                         <span asp-validation-for="ProductPrice" class="text-danger"></span>
                     </div>
                 </div>
-
+                <!-- Quantity and image fields -->
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="AvailableQuantity"></label>
@@ -62,7 +74,7 @@
                         <span asp-validation-for="ProductImage" class="text-danger"></span>
                     </div>
                 </div>
-
+                <!-- Description field -->
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="Description"></label>
@@ -70,7 +82,7 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
-
+                <!-- Submit button -->
                 <button type="submit" class="btn home-btn-signup">Add Product</button>
             </form>
         </div>

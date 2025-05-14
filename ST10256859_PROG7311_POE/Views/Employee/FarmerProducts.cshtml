@@ -1,6 +1,15 @@
-﻿@model ST10256859_PROG7311_POE.ViewModels.FarmerProductsViewModel
+﻿@* Dhiren Ruthenavelu
+ ST10256859
+ Group 2
+
+ References:
+ - GitHub Copilot for assisting with the structure of the code.
+ - ChatGPT for assisting me with finding and fixing errors in the code. *@
+
+@model ST10256859_PROG7311_POE.ViewModels.FarmerProductsViewModel
 
 @functions {
+    // Helper to get image source for product images
     public string GetImageSrc(byte[] imageData)
     {
         if (imageData == null || imageData.Length == 0)
@@ -18,8 +27,10 @@
             <div class="home-welcome-message login-title profile-title-center">
                 Farmer Products
             </div>
+            <!-- Filter form for farmer, category, and date range -->
             <form method="get" asp-action="FarmerProducts" class="auth-form farmer-products-form mb-3">
                 <div class="form-row">
+                    <!-- Farmer dropdown -->
                     <div class="form-group flex-grow-1">
                         <label>Farmer</label>
                         <select name="farmerId" class="form-control" onchange="this.form.submit()">
@@ -32,6 +43,7 @@
                             }
                         </select>
                     </div>
+                    <!-- Category dropdown -->
                     <div class="form-group flex-grow-1">
                         <label>Product Type</label>
                         <select name="category" class="form-control" onchange="this.form.submit()">
@@ -42,6 +54,7 @@
                             }
                         </select>
                     </div>
+                    <!-- Start and end date filters -->
                     <div class="form-group flex-grow-1">
                         <label>Start Date</label>
                         <input type="date" name="startDate" value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" class="form-control" onchange="this.form.submit()" />
@@ -55,6 +68,7 @@
                     </div>
                 </div>
             </form>
+            <!-- Product table -->
             @if (Model.Products != null && Model.Products.Any())
             {
                 <div class="table-responsive">

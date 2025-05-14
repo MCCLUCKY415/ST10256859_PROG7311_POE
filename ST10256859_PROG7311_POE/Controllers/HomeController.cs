@@ -1,3 +1,11 @@
+// Dhiren Ruthenavelu
+// ST10256859
+// Group 2
+
+// References:
+// - GitHub Copilot for assisting with the structure of the code.
+// - ChatGPT for assisting me with finding and fixing errors in the code.
+
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,12 +15,17 @@ using ST10256859_PROG7311_POE.ViewModels;
 
 namespace ST10256859_PROG7311_POE.Controllers
 {
+    // Handles home page and authentication actions
     public class HomeController : Controller
     {
+        // Logger and repositories for Farmer and Employee
         private readonly ILogger<HomeController> _logger;
         private readonly IRepository<Farmer> _farmerRepo;
         private readonly IRepository<Employee> _employeeRepo;
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Constructor with dependency injection
         public HomeController(
             ILogger<HomeController> logger,
             IRepository<Farmer> farmerRepo,
@@ -23,14 +36,17 @@ namespace ST10256859_PROG7311_POE.Controllers
             _employeeRepo = employeeRepo;
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        // GET: Login
+        // GET: Login page
         public IActionResult Login()
         {
             return View();
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        // POST: Handles login for Farmer and Employee
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -65,16 +81,17 @@ namespace ST10256859_PROG7311_POE.Controllers
             return View(model);
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-        // GET: SignUp
+        // GET: SignUp page
         public IActionResult SignUp()
         {
             return View();
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        // POST: SignUp
+        // POST: Handles sign up for new Employee
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignUp(SignUpViewModel model)
@@ -108,7 +125,9 @@ namespace ST10256859_PROG7311_POE.Controllers
             return View(model);
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        // POST: Logs out the current user
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Logout()
@@ -117,24 +136,24 @@ namespace ST10256859_PROG7311_POE.Controllers
             return RedirectToAction("Login", "Home");
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        // GET: Home page, shows all farmers
         public async Task<IActionResult> Index()
         {
             var farmers = await _farmerRepo.GetAllAsync();
             return View(farmers);
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-
+        // Handles errors
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

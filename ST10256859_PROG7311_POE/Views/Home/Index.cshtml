@@ -1,15 +1,27 @@
-﻿@{
+﻿@* Dhiren Ruthenavelu
+ ST10256859
+ Group 2
+
+ References:
+ - GitHub Copilot for assisting with the structure of the code.
+ - ChatGPT for assisting me with finding and fixing errors in the code. *@
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="home-logo-container">
+    <!-- Logo image -->
     <img src="~/images/image1.png" alt="Agri-Energy Connect Logo" class="home-logo-img" />
 
     <div class="home-title-group">
+        <!-- Application title -->
         <div class="home-logo-title">Agri-Energy Connect</div>
+        <!-- Welcome message -->
         <div class="home-welcome-message">
             Empowering farmers and buyers through smart, sustainable, and simple agricultural solutions.
         </div>
+        <!-- Login and Sign Up buttons -->
         <div class="home-action-buttons">
             <a class="btn home-btn-login" asp-controller="Home" asp-action="Login">Login</a>
             <a class="btn home-btn-signup" asp-controller="Home" asp-action="SignUp">Sign Up</a>

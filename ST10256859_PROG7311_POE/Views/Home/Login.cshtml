@@ -1,17 +1,28 @@
-﻿@using ST10256859_PROG7311_POE.ViewModels
+﻿@* Dhiren Ruthenavelu
+ ST10256859
+ Group 2
+
+ References:
+ - GitHub Copilot for assisting with the structure of the code.
+ - ChatGPT for assisting me with finding and fixing errors in the code. *@
+
+@using ST10256859_PROG7311_POE.ViewModels
 @model LoginViewModel
 
 <div class="home-logo-container">
+    <!-- Logo image -->
     <img src="~/images/image1.png" alt="Agri-Energy Connect Logo" class="home-logo-img" />
 
     <div class="home-title-group">
         <div class="home-welcome-message login-title">
             Login to your account
         </div>
+        <!-- Show validation summary if form is invalid -->
         @if (ViewContext.HttpContext.Request.Method == "POST" && !ViewData.ModelState.IsValid)
         {
             @Html.ValidationSummary(false, "", new { @class = "system-error-summary" })
         }
+        <!-- Login form -->
         <form asp-action="Login" method="post" class="auth-form">
             <div class="form-group">
                 <label asp-for="Email"></label>
@@ -25,6 +36,7 @@
             </div>
             <button type="submit" class="btn home-btn-login">Login</button>
         </form>
+        <!-- Link to sign up page -->
         <div class="mt-3 signup-login-center signup-login-margin">
             <p>Don't have an account? <a href="@Url.Action("SignUp", "Home")" class="home-link">Sign up</a></p>
         </div>

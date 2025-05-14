@@ -1,4 +1,12 @@
-﻿@model ST10256859_PROG7311_POE.ViewModels.FarmerAddViewModel
+﻿@* Dhiren Ruthenavelu
+ ST10256859
+ Group 2
+
+ References:
+ - GitHub Copilot for assisting with the structure of the code.
+ - ChatGPT for assisting me with finding and fixing errors in the code. *@
+
+@model ST10256859_PROG7311_POE.ViewModels.FarmerAddViewModel
 
 <div class="home-logo-container">
     <div class="home-title-group">
@@ -6,11 +14,14 @@
             <div class="home-welcome-message login-title profile-title-center">
                 Add Farmer
             </div>
+            <!-- Show validation summary if form is invalid -->
             @if (ViewContext.HttpContext.Request.Method == "POST" && !ViewData.ModelState.IsValid)
             {
                 @Html.ValidationSummary(false, "", new { @class = "system-error-summary" })
             }
+            <!-- Farmer add form -->
             <form asp-action="FarmerAdd" method="post" class="auth-form">
+                <!-- First and last name fields -->
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="FirstName"></label>
@@ -23,6 +34,7 @@
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
+                <!-- Email and phone number fields -->
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="Email"></label>
@@ -35,6 +47,7 @@
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>
+                <!-- Address field -->
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="Address"></label>
@@ -42,6 +55,7 @@
                         <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
                 </div>
+                <!-- Password and confirm password fields -->
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="Password"></label>
@@ -54,6 +68,7 @@
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
                 </div>
+                <!-- Submit button -->
                 <button type="submit" class="btn home-btn-signup">Add Farmer</button>
             </form>
         </div>

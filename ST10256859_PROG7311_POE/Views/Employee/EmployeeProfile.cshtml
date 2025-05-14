@@ -5,30 +5,34 @@
 }
 
 <div class="home-logo-container">
-    <div class="home-title-group">
-        <div class="profile-details">
-            <div class="home-welcome-message login-title profile-title-center">
+    <div class="home-title-group farmer-products-title-group">
+        <!-- Block 1: Outer Profile Block -->
+        <div class="profile-outer-block">
+            <div class="profile-title profile-title-center">
                 Employee Profile
             </div>
-            <div class="profile-row">
-                <span class="profile-label">First Name:</span>
-                <span class="profile-value">@Model.FirstName</span>
-            </div>
-            <div class="profile-row">
-                <span class="profile-label">Last Name:</span>
-                <span class="profile-value">@Model.LastName</span>
-            </div>
-            <div class="profile-row">
-                <span class="profile-label">Email:</span>
-                <span class="profile-value">@Model.Email</span>
-            </div>
-            <div class="profile-row">
-                <span class="profile-label">Phone Number:</span>
-                <span class="profile-value">@Model.PhoneNumber</span>
-            </div>
-            <div class="profile-row">
-                <span class="profile-label">Address:</span>
-                <span class="profile-value">@Model.Address</span>
+            <!-- Block 2: Centered Inner Details Block -->
+            <div class="profile-details-inner">
+                <div class="profile-row">
+                    <span class="profile-label">First Name:</span>
+                    <span class="profile-value">@Model.FirstName</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Last Name:</span>
+                    <span class="profile-value">@Model.LastName</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Email:</span>
+                    <span class="profile-value">@Model.Email</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Phone Number:</span>
+                    <span class="profile-value">@Model.PhoneNumber</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Address:</span>
+                    <span class="profile-value">@Model.Address</span>
+                </div>
             </div>
         </div>
     </div>

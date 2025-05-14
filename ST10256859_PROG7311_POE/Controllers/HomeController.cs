@@ -56,7 +56,7 @@ namespace ST10256859_PROG7311_POE.Controllers
                     HttpContext.Session.SetString("UserRole", "Employee");
                     HttpContext.Session.SetString("UserID", employee.EmployeeID.ToString());
                     HttpContext.Session.SetString("UserName", employee.FirstName + " " + employee.LastName);
-                    return RedirectToAction("EmployeeProfile", "Employee");
+                    return RedirectToAction("FarmerProducts", "Employee");
                 }
 
                 ModelState.AddModelError("", "Email or password is incorrect or account doesn't exist.");

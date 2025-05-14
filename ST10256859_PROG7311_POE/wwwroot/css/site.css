@@ -1,5 +1,6 @@
 body {
     background-color: #fdf8e8;
+    color: #212529;
 }
 
 .home-logo-container {
@@ -24,6 +25,16 @@ body {
     flex-direction: column;
     align-items: flex-start;
     max-width: 600px;
+}
+
+.home-logo-title-small {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 1.2rem;
+    color: #196422;
+    text-align: left;
+    display: block;
 }
 
 .farmer-products-title-group {
@@ -175,6 +186,43 @@ body {
     margin-top: 1.0rem;
 }
 
+.profile-outer-block {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 2.5rem 3rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #582f0e;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.profile-details-inner {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
 .profile-details {
     background: #fff;
     border-radius: 10px;
@@ -188,8 +236,26 @@ body {
     gap: 1.2rem;
 }
 
-    .profile-details.farmer-products-details {
-        max-width: 1600px !important;
+    .profile-details.farmer-products-details,
+    .wide-products-block {
+        max-width: 1800px !important;
+        max-width: 100%;
+        width: 100%;
+    }
+
+.profile-details-center {
+    text-align: center;
+}
+
+    .profile-details-center .profile-row {
+        justify-content: center;
+    }
+
+    .profile-details-center .profile-label,
+    .profile-details-center .profile-value {
+        display: inline-block;
+        text-align: center;
+        float: none;
     }
 
 .profile-row {
@@ -236,3 +302,68 @@ body {
     max-width: 100%;
     flex: 1 1 0;
 }
+
+.table td, .table th {
+    text-align: center;
+    vertical-align: middle;
+    word-break: break-word;
+    white-space: normal;
+    max-width: 220px;
+    overflow-wrap: break-word;
+}
+
+.table img,
+.product-table-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 6px;
+}
+
+.profile-title-center {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.listed-products-title {
+    margin-bottom: 20px !important;
+}
+
+label {
+    color: #212529 !important;
+}
+
+input,
+textarea,
+select {
+    color: #000 !important;
+}
+
+.signup-box-margin {
+    background-color: #fdf8e8 !important;
+    margin-left: -40px !important;
+}
+
+.signup-title-margin {
+    margin-bottom: -40px !important;
+}
+
+.signup-login-center {
+    margin-top: 0px !important;
+    text-align: center;
+}
+
+.signup-box-margin .profile-details.farmer-products-details {
+    background-color: #fdf8e8 !important;
+    box-shadow: none !important;
+}
+
+.signup-login-margin {
+    margin-top: 10px !important;
+    margin-left: 60px !important;
+}
+

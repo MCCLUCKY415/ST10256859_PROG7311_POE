@@ -23,12 +23,12 @@ namespace ST10256859_PROG7311_POE.ViewModels
 
         [Required(ErrorMessage = "Please enter the product price.")]
         [Display(Name = "Product Price (Rands)")]
-        [Range(0.01, 9999999999, ErrorMessage = "Product price must be greater than 0 and less than or equal to 9,999,999,999.")]
+        [Range(0.01, 999999999, ErrorMessage = "Product price must be greater than 0 and less than or equal to 999,999,999.")]
         public decimal ProductPrice { get; set; }
 
         [Required(ErrorMessage = "Please enter the available quantity.")]
         [Display(Name = "Product Quantity")]
-        [Range(1, 9999999999, ErrorMessage = "Available quantity must be between 1 and 9,999,999,999.")]
+        [Range(1, 999999999, ErrorMessage = "Available quantity must be between 1 and 999,999,999.")]
         public int AvailableQuantity { get; set; }
 
         [MaxLength(250, ErrorMessage = "Description cannot exceed 250 characters.")]

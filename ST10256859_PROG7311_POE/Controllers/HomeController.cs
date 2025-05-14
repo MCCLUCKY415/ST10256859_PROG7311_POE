@@ -45,7 +45,7 @@ namespace ST10256859_PROG7311_POE.Controllers
                     HttpContext.Session.SetString("UserRole", "Farmer");
                     HttpContext.Session.SetString("UserID", farmer.FarmerID.ToString());
                     HttpContext.Session.SetString("UserName", farmer.FirstName + " " + farmer.LastName);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("FarmerProfile", "Farmer");
                 }
 
                 var employee = _employeeRepo.Query()
@@ -56,7 +56,7 @@ namespace ST10256859_PROG7311_POE.Controllers
                     HttpContext.Session.SetString("UserRole", "Employee");
                     HttpContext.Session.SetString("UserID", employee.EmployeeID.ToString());
                     HttpContext.Session.SetString("UserName", employee.FirstName + " " + employee.LastName);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("EmployeeProfile", "Employee");
                 }
 
                 ModelState.AddModelError("", "Email or password is incorrect or account doesn't exist.");

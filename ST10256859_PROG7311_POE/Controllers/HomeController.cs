@@ -59,7 +59,7 @@ namespace ST10256859_PROG7311_POE.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                ModelState.AddModelError("", "Invalid email or password.");
+                ModelState.AddModelError("", "Email or password is incorrect or account doesn't exist.");
             }
 
             return View(model);

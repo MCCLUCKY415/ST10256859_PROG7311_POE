@@ -3,6 +3,9 @@
 
 <h2>Login</h2>
 
+@* Display model-level errors *@
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
 <form asp-action="Login" method="post">
     <div class="form-group">
         <label asp-for="Email"></label>

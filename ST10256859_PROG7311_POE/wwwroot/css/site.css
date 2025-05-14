@@ -125,7 +125,7 @@ body {
 
 .auth-form {
     width: 100%;
-    max-width: 350px;
+    max-width: 900px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -170,7 +170,7 @@ body {
     padding: 2.5rem 3rem;
     margin-top: 2rem;
     width: 100%;
-    max-width: 700px;
+    max-width: 900px; 
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
@@ -199,7 +199,17 @@ body {
     text-align: center;
     width: 100%;
     display: block;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
+.form-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    width: 100%;
+}
+
+    .form-row .form-group {
+        flex: 1 1 0;
+    }
 

@@ -44,7 +44,8 @@ The platform simulates real-world agricultural operations by integrating a relat
 5. Navigate your way to where you extracted the ZIP file, double click on the folder "ST10256859_PROG7311_POE-master", and then select the file ending with ".sln", then click "Open".
 6. Once the project opens, click on the "Start" button at the top with a green play sign on it. The project should then start up and you'll see the application appear with the Home page for the Agri-Energy Connect Application.
 7. From there you can create your account as an employee and add farmer accounts or view farmer products. Or you can log in as a farmer, create product listings and view them on your farmer profile.
-8. Enjoy!
+8. Please Note! You do not need to download a seperate file for the database it should just run and work when you run the program.
+9. Enjoy!
 
 ## References
 

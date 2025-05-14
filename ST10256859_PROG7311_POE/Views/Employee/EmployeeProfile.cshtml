@@ -4,20 +4,32 @@
     ViewData["Title"] = "Employee Profile";
 }
 
-<h2>Employee Profile</h2>
-
-<div>
-    <h4>Personal Details</h4>
-    <dl class="row">
-        <dt class="col-sm-2">First Name</dt>
-        <dd class="col-sm-10">@Model.FirstName</dd>
-        <dt class="col-sm-2">Last Name</dt>
-        <dd class="col-sm-10">@Model.LastName</dd>
-        <dt class="col-sm-2">Email</dt>
-        <dd class="col-sm-10">@Model.Email</dd>
-        <dt class="col-sm-2">Phone Number</dt>
-        <dd class="col-sm-10">@Model.PhoneNumber</dd>
-        <dt class="col-sm-2">Address</dt>
-        <dd class="col-sm-10">@Model.Address</dd>
-    </dl>
+<div class="home-logo-container">
+    <div class="home-title-group">
+        <div class="profile-details">
+            <div class="home-welcome-message login-title profile-title-center">
+                Employee Profile
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">First Name:</span>
+                <span class="profile-value">@Model.FirstName</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">Last Name:</span>
+                <span class="profile-value">@Model.LastName</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">Email:</span>
+                <span class="profile-value">@Model.Email</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">Phone Number:</span>
+                <span class="profile-value">@Model.PhoneNumber</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">Address:</span>
+                <span class="profile-value">@Model.Address</span>
+            </div>
+        </div>
+    </div>
 </div>

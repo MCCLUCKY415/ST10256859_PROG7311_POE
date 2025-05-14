@@ -163,3 +163,43 @@ body {
     margin-top: 1.0rem;
 }
 
+.profile-details {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 2.5rem 3rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.profile-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-label {
+    font-weight: 600;
+    color: #18681f;
+    min-width: 120px;
+}
+
+.profile-value {
+    color: #582F0E;
+    font-size: 1.1rem;
+    word-break: break-word;
+}
+
+.profile-title-center {
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-bottom: 40px;
+}
+
+

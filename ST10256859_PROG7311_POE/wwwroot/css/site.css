@@ -26,6 +26,10 @@ body {
     max-width: 600px;
 }
 
+.farmer-products-title-group {
+    max-width: 1400px !important;
+}
+
 .home-logo-title {
     font-size: 3rem;
     font-weight: bold;
@@ -74,7 +78,6 @@ body {
 .navbar .logout-btn {
     margin-right: 16px;
 }
-
 
 .custom-footer {
     background-color: #18681f;
@@ -137,6 +140,10 @@ body {
     gap: 1rem;
 }
 
+    .auth-form.farmer-products-form {
+        max-width: 1400px !important;
+    }
+
     .auth-form .form-group {
         width: 100%;
     }
@@ -175,11 +182,15 @@ body {
     padding: 2.5rem 3rem;
     margin-top: 2rem;
     width: 100%;
-    max-width: 900px; 
+    max-width: 900px;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
 }
+
+    .profile-details.farmer-products-details {
+        max-width: 1400px !important;
+    }
 
 .profile-row {
     display: flex;
@@ -217,4 +228,3 @@ body {
     .form-row .form-group {
         flex: 1 1 0;
     }
-

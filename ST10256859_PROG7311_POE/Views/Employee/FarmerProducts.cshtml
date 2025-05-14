@@ -12,80 +12,87 @@
     }
 }
 
-<h2>Farmer Products</h2>
-
-<form method="get" asp-action="FarmerProducts" class="mb-3">
-    <div class="row">
-        <div class="col-md-3">
-            <label>Farmer</label>
-            <select name="farmerId" class="form-control" onchange="this.form.submit()">
-                <option value="">-- Select Farmer --</option>
-                @foreach (var farmer in Model.Farmers)
-                {
-                    <option value="@farmer.FarmerID" selected="@(farmer.FarmerID == Model.SelectedFarmerId ? "selected" : null)">
-                        @farmer.FirstName @farmer.LastName
-                    </option>
-                }
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label>Product Type</label>
-            <select name="category" class="form-control" onchange="this.form.submit()">
-                <option value="">-- All Types --</option>
-                @foreach (var cat in Model.Categories)
-                {
-                    <option value="@cat" selected="@(cat == Model.SelectedCategory ? "selected" : null)">@cat</option>
-                }
-            </select>
-        </div>
-        <div class="col-md-2">
-            <label>Start Date</label>
-            <input type="date" name="startDate" value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" class="form-control" onchange="this.form.submit()" />
-        </div>
-        <div class="col-md-2">
-            <label>End Date</label>
-            <input type="date" name="endDate" value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" class="form-control" onchange="this.form.submit()" />
-        </div>
-        <div class="col-md-2 align-self-end">
-            <button type="submit" class="btn btn-primary w-100">Filter</button>
+<div class="home-logo-container">
+    <div class="home-title-group farmer-products-title-group">
+        <div class="profile-details farmer-products-details">
+            <div class="home-welcome-message login-title profile-title-center">
+                Farmer Products
+            </div>
+            <form method="get" asp-action="FarmerProducts" class="auth-form farmer-products-form mb-3">
+                <div class="form-row">
+                    <div class="form-group flex-grow-1">
+                        <label>Farmer</label>
+                        <select name="farmerId" class="form-control" onchange="this.form.submit()">
+                            <option value="">-- Select Farmer --</option>
+                            @foreach (var farmer in Model.Farmers)
+                            {
+                                <option value="@farmer.FarmerID" selected="@(farmer.FarmerID == Model.SelectedFarmerId ? "selected" : null)">
+                                    @farmer.FirstName @farmer.LastName
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group flex-grow-1">
+                        <label>Product Type</label>
+                        <select name="category" class="form-control" onchange="this.form.submit()">
+                            <option value="">-- All Types --</option>
+                            @foreach (var cat in Model.Categories)
+                            {
+                                <option value="@cat" selected="@(cat == Model.SelectedCategory ? "selected" : null)">@cat</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group flex-grow-1">
+                        <label>Start Date</label>
+                        <input type="date" name="startDate" value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" class="form-control" onchange="this.form.submit()" />
+                    </div>
+                    <div class="form-group flex-grow-1">
+                        <label>End Date</label>
+                        <input type="date" name="endDate" value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" class="form-control" onchange="this.form.submit()" />
+                    </div>
+                    <div class="form-group flex-grow-1 d-flex align-items-end">
+                        <button type="submit" class="btn home-btn-signup" style="width:auto; min-width:180px; align-self:center;">Filter</button>
+                    </div>
+                </div>
+            </form>
+            @if (Model.Products != null && Model.Products.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Production Date</th>
+                                <th>Price</th>
+                                <th>Available Quantity</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="@GetImageSrc(product.ProductImage)" alt="Product Image" style="max-width:100px;max-height:100px;" />
+                                    </td>
+                                    <td>@product.ProductName</td>
+                                    <td>@product.Category</td>
+                                    <td>@product.ProductionDate.ToShortDateString()</td>
+                                    <td>@product.ProductPrice</td>
+                                    <td>@product.AvailableQuantity</td>
+                                    <td>@product.Description</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>No products found for the selected criteria.</p>
+            }
         </div>
     </div>
-</form>
-
-@if (Model.Products != null && Model.Products.Any())
-{
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Production Date</th>
-                <th>Price</th>
-                <th>Available Quantity</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model.Products)
-            {
-                <tr>
-                    <td>
-                        <img src="@GetImageSrc(product.ProductImage)" alt="Product Image" style="max-width:100px;max-height:100px;" />
-                    </td>
-                    <td>@product.ProductName</td>
-                    <td>@product.Category</td>
-                    <td>@product.ProductionDate.ToShortDateString()</td>
-                    <td>@product.ProductPrice</td>
-                    <td>@product.AvailableQuantity</td>
-                    <td>@product.Description</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No products found for the selected criteria.</p>
-}
-
+</div>

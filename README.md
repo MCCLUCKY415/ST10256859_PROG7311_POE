@@ -2,7 +2,7 @@
 
 ## Project Description
 
-The Agri-Energy Connect Platform is a prototype web application developed using C#, ASP.NET Core MVC, and Visual Studio. It was created as part of a proposal to support sustainable agriculture by connecting farmers and employees through an easy-to-use digital platform. The application implements a clean separation of concerns using the MVC architecture and follows best practices by using repository patterns and asynchronous programming for improved scalability and responsiveness.
+The Agri-Energy Connect Platform is a prototype web application developed using C#, ASP.NET Core MVC, and Visual Studio. It was created as part of a proposal to support sustainable agriculture by connecting farmers and employees through an easy-to-use digital platform. The application implements a clean separation of concerns using the MVC architecture and follows best practices by using repository patterns and asynchronous programming for improved scalability and responsiveness. The system makes use of an SQLite database to store farmer, employee and product data in tables.
 
 The platform simulates real-world agricultural operations by integrating a relational database to manage farmer and product data. It allows farmers to add and manage their product listings, while employees can add new farmers and access all product information with filtering options.
 

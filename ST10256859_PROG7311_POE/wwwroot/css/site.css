@@ -7,7 +7,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    min-height: 74vh; /* This pushes the footer down */
+    min-height: 84vh;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -39,7 +39,6 @@ body {
     font-size: 1.3rem;
     font-weight: 500;
     margin-top: 20px;
-    margin-bottom: 40px;
     max-width: 100%;
     text-align: left;
     width: 100%;
@@ -50,10 +49,27 @@ body {
     background-color: #18681f !important;
 }
 
-    .navbar .nav-link,
-    .navbar .navbar-brand {
-        color: #fdf8e8 !important;
+.navbar-nav.nav-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .btn-link.nav-link {
+    color: #fdf8e8 !important;
+    font-size: 1.0rem; 
+    letter-spacing: 0.5px;
+}
+
+    .navbar .nav-link:hover,
+    .navbar .navbar-brand:hover,
+    .navbar .btn-link.nav-link:hover {
+        color: #81aa29 !important;
     }
+
 
 .custom-footer {
     background-color: #18681f;
@@ -68,3 +84,82 @@ body {
         color: #582F0E;
         text-decoration: underline;
     }
+
+.home-action-buttons {
+    display: flex;
+    gap: 2rem;
+    margin-top: 24px;
+}
+
+.home-btn-login, .home-btn-signup {
+    padding: 0.75rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.home-btn-login {
+    background-color: #18681f;
+    color: #fdf8e8;
+    border: 2px solid #18681f;
+}
+
+    .home-btn-login:hover {
+        background-color: #81aa29;
+        color: #fff;
+    }
+
+.home-btn-signup {
+    background-color: #18681f;
+    color: #fdf8e8;
+    border: 2px solid #18681f;
+}
+
+    .home-btn-signup:hover {
+        background-color: #81aa29;
+        color: #fff;
+    }
+
+.auth-form {
+    width: 100%;
+    max-width: 350px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+    .auth-form .form-group {
+        width: 100%;
+    }
+
+.home-link {
+    color: #18681f;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+    .home-link:hover {
+        color: #81aa29;
+    }
+
+.login-title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.auth-form .form-group:first-child {
+    margin-bottom: 0.5rem;
+}
+
+.auth-form .home-btn-login {
+    margin-top: 1.2rem;
+}
+
+.auth-form .home-btn-signup {
+    margin-top: 1.0rem;
+}
+

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+    var action = ViewContext.RouteData.Values["Action"]?.ToString();
+    var hideNavbar = controller == "Home" && (action == "Index" || action == "Login" || action == "SignUp");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,62 +15,62 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @{
-                        var userRole = Context.Session.GetString("UserRole");
-                    }
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @if (string.IsNullOrEmpty(userRole))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign Up</a>
-                            </li>
+        @if (!hideNavbar)
+        {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        @{
+                            var userRole = Context.Session.GetString("UserRole");
                         }
-                        else if (userRole == "Farmer")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Farmer" asp-action="ProductAdd">Add a Product</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Farmer" asp-action="FarmerProfile">Profile</a>
-                            </li>
-                        }
-                        else if (userRole == "Employee")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="EmployeeProfile">Employee Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="FarmerProducts">Farmer Products</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="FarmerAdd">Add Farmer</a>
-                            </li>
-                        }
-                        @if (!string.IsNullOrEmpty(userRole))
-                        {
-                            <li class="nav-item">
-                                <form asp-area="" asp-controller="Home" asp-action="Logout" method="post" class="d-inline">
-                                    <button type="submit" class="nav-link btn btn-link text-dark" style="display:inline; padding:0; border:none; background:none;">Logout</button>
-                                </form>
-                            </li>
-                        }
-                    </ul>
+                        <ul class="navbar-nav mx-auto nav-center">
+                            @if (string.IsNullOrEmpty(userRole))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign Up</a>
+                                </li>
+                            }
+                            else if (userRole == "Farmer")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Farmer" asp-action="ProductAdd">Add a Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Farmer" asp-action="FarmerProfile">Profile</a>
+                                </li>
+                            }
+                            else if (userRole == "Employee")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="EmployeeProfile">Employee Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="FarmerProducts">Farmer Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="FarmerAdd">Add Farmer</a>
+                                </li>
+                            }
+                            @if (!string.IsNullOrEmpty(userRole))
+                            {
+                                <li class="nav-item">
+                                    <form asp-area="" asp-controller="Home" asp-action="Logout" method="post" class="d-inline">
+                                        <button type="submit" class="nav-link btn btn-link text-dark" style="display:inline; padding:0; border:none; background:none;">Logout</button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        }
     </header>
     <div class="container">
         <main role="main" class="pb-3">

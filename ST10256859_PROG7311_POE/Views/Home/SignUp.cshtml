@@ -9,8 +9,11 @@
             <div class="home-welcome-message login-title profile-title-center signup-title-margin">
                 Create your account
             </div>
-            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             <form asp-action="SignUp" method="post" class="auth-form">
+                @if (ViewContext.HttpContext.Request.Method == "POST" && !ViewData.ModelState.IsValid)
+                {
+                    @Html.ValidationSummary(false, "", new { @class = "system-error-summary" })
+                }
                 <div class="form-row">
                     <div class="form-group flex-grow-1">
                         <label asp-for="FirstName"></label>

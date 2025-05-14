@@ -6,6 +6,10 @@
             <div class="home-welcome-message login-title profile-title-center">
                 Add Farmer
             </div>
+            @if (ViewContext.HttpContext.Request.Method == "POST" && !ViewData.ModelState.IsValid)
+            {
+                @Html.ValidationSummary(false, "", new { @class = "system-error-summary" })
+            }
             <form asp-action="FarmerAdd" method="post" class="auth-form">
                 <div class="form-row">
                     <div class="form-group flex-grow-1">

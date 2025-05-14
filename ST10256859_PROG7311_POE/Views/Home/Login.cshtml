@@ -8,7 +8,10 @@
         <div class="home-welcome-message login-title">
             Login to your account
         </div>
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @if (ViewContext.HttpContext.Request.Method == "POST" && !ViewData.ModelState.IsValid)
+        {
+            @Html.ValidationSummary(false, "", new { @class = "system-error-summary" })
+        }
         <form asp-action="Login" method="post" class="auth-form">
             <div class="form-group">
                 <label asp-for="Email"></label>
